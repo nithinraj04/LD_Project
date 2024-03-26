@@ -1,0 +1,7 @@
+# Ignore all files
+*
+
+# Include LD_Project.v and testbench.v
+!.gitignore
+!LD_Project.v
+!testbench.v
