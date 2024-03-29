@@ -11,7 +11,7 @@ module testbench;
     wire fgp, frp;
     reg clk;
 
-    LD_Project inst(clk, s0, s1, s2, s3, inp[0], inp[1], inp[2], inp[3], inp[4], fgt[0], fgt[1], fgt[2], fgt[3], fgt[4], frt[0], frt[1], frt[2], frt[3], frt[4], fgc[0], fgc[1], fgc[2], fgc[3], fgc[4], frc[0], frc[1], frc[2], frc[3], frc[4], fgp, frp);
+    LD_Project inst(clk, s0, s1, s2, s3, inp, fgt, frt, fgc, frc, fgp, frp);
 
     integer count;
 

@@ -1,15 +1,14 @@
-module LD_Project(i, s0, s1, s2, s3, i0, i1, i2, i3, i4, fgt0, fgt1, fgt2, fgt3, fgt4, 
-frt0, frt1, frt2, frt3, frt4, fgc0, fgc1, fgc2, fgc3, fgc4, frc0, frc1, frc2, frc3, frc4, fgp, frp);
+module LD_Project(i, s0, s1, s2, s3, inp, fgt, frt, fgc, frc, fgp, frp);
     input i; //power
     input s0, s1; // selector for "what to control"
     input s2;  // selector for fridge/freezer
     input s3;  // selector for fridge no:
-    input i0, i1, i2, i3, i4; // input for values 
+    input [4:0] inp; // input for values 
 
-    output fgt0, fgt1, fgt2, fgt3, fgt4; // fridge temperature
-    output frt0, frt1, frt2, frt3, frt4; // freezer temperature
-    output fgc0, fgc1, fgc2, fgc3, fgc4; // fridge capacity
-    output frc0, frc1, frc2, frc3, frc4; // freezer capacity
+    output [4:0] fgt; // fridge temperature
+    output [4:0] frt; // freezer temperature
+    output [4:0] fgc; // fridge capacity
+    output [4:0] frc; // freezer capacity
     output fgp, frp; // fridge and freezer power
 
     wire temp, capacity, power, y3, y4; 
@@ -20,10 +19,10 @@ frt0, frt1, frt2, frt3, frt4, fgc0, fgc1, fgc2, fgc3, fgc4, frc0, frc1, frc2, fr
     demuxTwoOne capacity_sel(capacity, s2, fridge_capacity, freezer_capacity);
     demuxTwoOne power_sel(power, s2, fridge_power, freezer_power);
 
-    memoryImplementation temperature_fridge(i, fridge_temp, i0, i1, i2, i3, i4, fgt0, fgt1, fgt2, fgt3, fgt4);
-    memoryImplementation temperature_freezer(i, freezer_temp, i0, i1, i2, i3, i4, frt0, frt1, frt2, frt3, frt4);
-    memoryImplementation capacity_fridge(i, fridge_capacity, i0, i1, i2, i3, i4, fgc0, fgc1, fgc2, fgc3, fgc4);
-    memoryImplementation capacity_freezer(i, freezer_capacity, i0, i1, i2, i3, i4, frc0, frc1, frc2, frc3, frc4);
+    memoryImplementation temperature_fridge(i, fridge_temp, inp[0], inp[1], inp[2], inp[3], inp[4], fgt[0], fgt[1], fgt[2], fgt[3], fgt[4]);
+    memoryImplementation temperature_freezer(i, freezer_temp, inp[0], inp[1], inp[2], inp[3], inp[4], frt[0], frt[1], frt[2], frt[3], frt[4]);
+    memoryImplementation capacity_fridge(i, fridge_capacity, inp[0], inp[1], inp[2], inp[3], inp[4], fgc[0], fgc[1], fgc[2], fgc[3], fgc[4]);
+    memoryImplementation capacity_freezer(i, freezer_capacity, inp[0], inp[1], inp[2], inp[3], inp[4], frc[0], frc[1], frc[2], frc[3], frc[4]);
 
 endmodule
 
