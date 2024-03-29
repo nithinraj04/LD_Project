@@ -5,3 +5,5 @@
 !.gitignore
 !LD_Project.v
 !testbench.v
+!essentials.v
+!fridge.v
