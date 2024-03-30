@@ -5,15 +5,16 @@ module testbench;
     //module LD_Project(i, s0, s1, s2, s3, i0, i1, i2, i3, i4, fgt0, fgt1, fgt2, fgt3, fgt4, 
 // frt0, frt1, frt2, frt3, frt4, fgc0, fgc1, fgc2, fgc3, fgc4, frc0, frc1, frc2, frc3, frc4, fgp, frp);
 
-    reg i, s0, s1, s2, s3;
-    reg [4:0] inp;
-    wire [4:0] fgt, frt, fgc, frc;
-    wire fgp, frp;
+    reg i; //power
+    reg s0, s1; // selector for "what to control"
+    reg [4:0] inp; // input for values
+    wire [4:0] temp; // temperature
+    wire [4:0] cap; // capacity
+    wire [4:0] fan; // fan speed
+    wire [4:0] timer; // timer
     reg clk;
 
-    LD_Project inst(clk, s0, s1, s2, s3, inp, fgt, frt, fgc, frc, fgp, frp);
-
-    integer count;
+    LD_Project inst(clk, s0, s1, inp, temp, cap, fan, timer);
 
     always #5 clk = ~clk;
 
@@ -22,7 +23,6 @@ module testbench;
         // i = 1;
         clk = 1;
         s0 = 0; s1 = 0;
-        s2 = 0; 
         inp = 5'b11111;
         #10
 
@@ -31,7 +31,6 @@ module testbench;
 
         // i = 1;
         s0 = 0; s1 = 1;
-        s2 = 0;
         // i0 = 1; i1 = 0; i2 = 1; i3 = 0; i4 = 1;
         inp = 5'b10101;
         #10
@@ -40,10 +39,13 @@ module testbench;
         // #1
 
         // i = 1;
-        s0 = 0; s1 = 0;
-        s2 = 1;
+        s0 = 1; s1 = 0;
         // i0 = 0; i1 = 0; i2 = 0; i3 = 0; i4 = 0;
-        inp = 5'b00000;
+        inp = 5'b01010;
+        #10
+
+        s0 = 1; s1 = 1;
+        inp = 5'b10111;
         #10
 
         $finish();
