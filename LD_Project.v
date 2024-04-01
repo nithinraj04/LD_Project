@@ -1,5 +1,5 @@
 module LD_Project(clk, s0, s1, s2, s3, s4, s5, inp, 
-fgt1, frt1, fgc1, frc1, fgt2, frt2, fgc2, frc2,
+fgt1, frt1, fgc1, frc1, fgt2, frt2, fgc2, frc2, ice1, ice2,
 actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2,
 );
     input clk;
@@ -10,6 +10,7 @@ actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2,
 
     input [4:0] inp; // input for values
     output [4:0] fgt1, frt1, fgc1, frc1, fgt2, frt2, fgc2, frc2;
+    output ice1, ice2;
     output [4:0] actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2;
 
     wire fridge_sel, ac_sel, dummy1, dummy2;
@@ -19,8 +20,8 @@ actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2,
     demuxTwoOne demux1(fridge_sel, s2, fridge1_sel, fridge2_sel);
     demuxTwoOne demux2(ac_sel, s2, ac1_sel, ac2_sel);
 
-    fridge fridge1(fridge1_sel, s3, s4, s5, inp, fgt1, frt1, fgc1, frc1);
-    fridge fridge2(fridge2_sel, s3, s4, s5, inp, fgt2, frt2, fgc2, frc2);
+    fridge fridge1(fridge1_sel, s3, s4, s5, inp, fgt1, frt1, fgc1, frc1, ice1);
+    fridge fridge2(fridge2_sel, s3, s4, s5, inp, fgt2, frt2, fgc2, frc2, ice2);
     airconditioner aircon1(ac1_sel, s3, s4, inp, actemp1, accap1, acfan1, actimer1);
     airconditioner aircon2(ac2_sel, s3, s4, inp, actemp2, accap2, acfan2, actimer2);
 endmodule

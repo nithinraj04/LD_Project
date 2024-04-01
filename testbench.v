@@ -5,82 +5,73 @@ module testbench;
     //module LD_Project(i, s0, s1, s2, s3, i0, i1, i2, i3, i4, fgt0, fgt1, fgt2, fgt3, fgt4, 
 // frt0, frt1, frt2, frt3, frt4, fgc0, fgc1, fgc2, fgc3, fgc4, frc0, frc1, frc2, frc3, frc4, fgp, frp);
 
-    reg i; //power
-    reg s0, s1; // selector for "what to control"
+    reg s0, s1; // selector for "what device to control"
+    reg s2; // Device number
+    reg s3, s4; // What to control in device
+    reg s5; // fridge/freezer (specific to fridge)
+
     reg [4:0] inp; // input for values
-    wire [4:0] temp; // temperature
-    wire [4:0] cap; // capacity
-    wire [4:0] fan; // fan speed
-    wire [4:0] timer; // timer
+    wire [4:0] fgt1, frt1, fgc1, frc1, fgt2, frt2, fgc2, frc2;
+    wire ice1, ice2;
+    wire [4:0] actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2;
+
     reg clk;
 
-    LD_Project inst(clk, s0, s1, inp, temp, cap, fan, timer);
+    LD_Project inst(clk, s0, s1, s2, s3, s4, s5, inp, fgt1, frt1, fgc1, frc1, fgt2, frt2, fgc2, frc2, ice1, ice2, actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2);
 
     always #5 clk = ~clk;
 
     initial begin 
 
-        // i = 1;
         clk = 1;
+        
+        // Initialize icemakers to 0
         s0 = 0; s1 = 0;
-        inp = 5'b11111;
-        #10
+        s2 = 0;
+        s3 = 1; s4 = 0;
+        s5 = 1'bx;
+        inp = 5'b00000;
+        #10;
+        s0 = 0; s1 = 0;
+        s2 = 1;
+        s3 = 1; s4 = 0;
+        s5 = 1'bx;
+        inp = 5'b00000;
+        #10;
 
-        // i = 0;
-        // #1
-
-        // i = 1;
-        s0 = 0; s1 = 1;
-        // i0 = 1; i1 = 0; i2 = 1; i3 = 0; i4 = 1;
+        s0 = 0; s1 = 0;
+        s2 = 0;
+        s3 = 0; s4 = 0;
+        s5 = 0;
         inp = 5'b10101;
         #10
 
-        // i = 0;
-        // #1
-
-        // i = 1;
-        s0 = 1; s1 = 0;
-        // i0 = 0; i1 = 0; i2 = 0; i3 = 0; i4 = 0;
+        // Test Case 1
+        #10;
+        s0 = 0; s1 = 1;
+        s2 = 1;
+        s3 = 1; s4 = 0;
+        s5 = 0;
         inp = 5'b01010;
-        #10
+        #10;
 
-        s0 = 1; s1 = 1;
-        inp = 5'b10111;
-        #10
+        // Test Case 2
+        s0 = 0; s1 = 1;
+        s2 = 2;
+        s3 = 0; s4 = 1;
+        s5 = 1;
+        inp = 5'b00100;
+        #10;
+
+        // Test Case 3
+        s0 = 0; s1 = 0;
+        s2 = 1;
+        s3 = 0; s4 = 1;
+        s5 = 1;
+        inp = 5'b11111;
+        #10;
 
         $finish();
-
-
-        // clk = 0;
-        // for(count = 0; count < 32; count = count + 1) 
-        // begin
-        //     #10 
-        //     i = 1; 
-        //     s0 = 1; //1 for write
-        //     i0 = count[0]; 
-        //     i1 = count[1]; 
-        //     i2 = count[2]; 
-        //     i3 = count[3]; 
-        //     i4 = count[4]; 
-        // end
-
-        // i0 = 1;
-        // i1 = 0;
-        // i2 = 1;
-        // i3 = 1;
-        // i4 = 1;
-
-        // for(count = 0; count < 32; count = count + 1) 
-        // begin
-        //     #10 
-        //     i = 1;
-        //     s0 = 0;
-        //     i0 = count[0]; 
-        //     i1 = count[1]; 
-        //     i2 = count[2]; 
-        //     i3 = count[3]; 
-        //     i4 = count[4]; 
-        // end
 
     end
 endmodule
