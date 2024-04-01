@@ -29,12 +29,14 @@ The five bits of `Inp` pin is used to give input values for the selected operati
 
 ### Air Conditioner
 
-You can control temperature, capacity, fan speed and timer using this device. The input lines `s3` and `s4` used for choosing the operation and the port `s5` is not used for this device. It can be fed with a dummy input. The opcodes are as follows 
+You can control temperature, capacity, fan speed and timer using this device. The input lines `s3` and `s4` used for choosing the operation and the port `s5` is not used for this device. It can be fed with a dummy input. The opcodes are as follows
 
 0 0 => Temperature\
 0 1 => Capacity\
 1 0 => Fan speed\
 1 1 => Timer
+
+The five bits of `Inp` pin is used to give input values for the selected operation. Temperature control takes 4 bit unsigned values (16°C to 32°C) of format 0xxxx. Capacity takes 2 bit input of format 000xx (25%, 50%, 75% and 100%). Both fan speed and timer takes 3 bit input values of format 00xxx.
 
 
 
