@@ -1,10 +1,6 @@
 `timescale 1 ns / 1 ns
 
 module testbench; 
-
-    //module LD_Project(i, s0, s1, s2, s3, i0, i1, i2, i3, i4, fgt0, fgt1, fgt2, fgt3, fgt4, 
-// frt0, frt1, frt2, frt3, frt4, fgc0, fgc1, fgc2, fgc3, fgc4, frc0, frc1, frc2, frc3, frc4, fgp, frp);
-
     reg s0, s1; // selector for "what device to control"
     reg s2; // Device number
     reg s3, s4; // What to control in device
