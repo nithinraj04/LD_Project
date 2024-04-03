@@ -7,13 +7,17 @@ module testbench;
     reg s5; // fridge/freezer (specific to fridge)
 
     reg [4:0] inp; // input for values
+    reg [4:0] wash, rinse, spin, cloth; // input for washing machine
     wire [4:0] fgt1, frt1, fgc1, frc1, fgt2, frt2, fgc2, frc2;
     wire ice1, ice2;
     wire [4:0] actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2;
+    wire [4:0] wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wash_out_2, rinse_out_2, spin_out_2, cloth_out_2;
 
     reg clk;
 
-    LD_Project inst(clk, s0, s1, s2, s3, s4, s5, inp, fgt1, frt1, fgc1, frc1, fgt2, frt2, fgc2, frc2, ice1, ice2, actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2);
+    LD_Project inst(clk, s0, s1, s2, s3, s4, s5, inp, fgt1, frt1, fgc1, frc1, fgt2, frt2, fgc2, frc2, ice1, ice2, actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2, wash, rinse, spin, cloth,
+wash_out_1, rinse_out_1, spin_out_1, cloth_out_1,
+wash_out_2, rinse_out_2, spin_out_2, cloth_out_2);
 
     always #5 clk = ~clk;
 
@@ -27,13 +31,13 @@ module testbench;
         s3 = 1; s4 = 0;
         s5 = 1'bx;
         inp = 5'b00000;
-        #10;
+        #10
         s0 = 0; s1 = 0;
         s2 = 1;
         s3 = 1; s4 = 0;
         s5 = 1'bx;
         inp = 5'b00000;
-        #10;
+        #10
 
         s0 = 0; s1 = 0;
         s2 = 0;
@@ -49,7 +53,7 @@ module testbench;
         s3 = 1; s4 = 0;
         s5 = 0;
         inp = 5'b01010;
-        #10;
+        #10
 
         // Test Case 2
         s0 = 0; s1 = 1;
@@ -57,7 +61,7 @@ module testbench;
         s3 = 0; s4 = 1;
         s5 = 1;
         inp = 5'b00100;
-        #10;
+        #10
 
         // Test Case 3
         s0 = 0; s1 = 0;
@@ -65,7 +69,26 @@ module testbench;
         s3 = 0; s4 = 1;
         s5 = 1;
         inp = 5'b11111;
-        #10;
+        #10
+
+        // Test Case 4
+        s0 = 1; s1 = 0;
+        s2 = 0;
+        s3 = 0; 
+        s4 = 0; s5 = 0;
+        wash = 5'b11111;
+        rinse = 5'b11111;
+        spin = 5'b11111;
+        cloth = 5'b11111;
+        #10
+
+        // Test Case 5
+        s0 = 1; s1 = 0;
+        s2 = 0;
+        s3 = 1;
+        s4 = 0; s5 = 0;
+        #10
+        
 
         $finish();
 

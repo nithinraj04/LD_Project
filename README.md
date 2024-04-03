@@ -38,8 +38,20 @@ You can control temperature, capacity, fan speed and timer using this device. Th
 
 The five bits of `Inp` pin is used to give input values for the selected operation. Temperature control takes 4 bit unsigned values (16°C to 32°C) of format 0xxxx. Capacity takes 2 bit input of format 000xx (25%, 50%, 75% and 100%). Both fan speed and timer takes 3 bit input values of format 00xxx.
 
+### Washing Machine
 
+You can control wash time, rinse time, spin time and cloth type using this device. Four different such presets can be stored and later be used. The port `s3` is used to chose between whether to write to ther registers or to read from the registers. The ports `s4` and `s5` are used to choose the preset number (i.e, mode1, mode2, mode3 and mode4).
 
+0 0 0 => Write to mode 1\
+0 0 1 => Write to mode 2\
+0 1 0 => Write to mode 3\
+0 1 1 => Write to mode 4\
+1 0 0 => Read/run mode 1\
+1 0 1 => Read/run mode 2\
+1 1 0 => Read/run mode 3\
+1 1 1 => Read/run mode 4
+
+Note that this device uses the four 4-bit input ports `wash`, `rinse`, `spin` and `cloth`; rather than the standard input port `inp`. Note that to reset the output of washing machines to 0000, just chose write mode and leave rest of the inputs blank.
 \
 \
 \

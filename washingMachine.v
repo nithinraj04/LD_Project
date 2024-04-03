@@ -1,6 +1,7 @@
 module washingMachine(clk, s0, s1, s2, wash, rinse, spin, cloth, wash_out, rinse_out, spin_out, cloth_out);
     input clk;
-    input s0, s1, s2;
+    input s0; // Read/write
+    input s1, s2; // Preset mode number
     input [4:0] wash, rinse, spin, cloth;
     output [4:0] wash_out, rinse_out, spin_out, cloth_out;
     wire write, read;
