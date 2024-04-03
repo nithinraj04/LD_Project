@@ -23,15 +23,15 @@ module washingMachine(clk, s0, s1, s2, wash, rinse, spin, cloth, wash_out, rinse
 
     and and0(choose_output, read, s0);
 
-    muxFourOneForWM wash_mux(wash_0, wash_1, wash_2, wash_3, s1, s2, wash_out_reg);
-    muxFourOneForWM rinse_mux(rinse_0, rinse_1, rinse_2, rinse_3, s1, s2, rinse_out_reg);
-    muxFourOneForWM spin_mux(spin_0, spin_1, spin_2, spin_3, s1, s2, spin_out_reg);
-    muxFourOneForWM cloth_mux(cloth_0, cloth_1, cloth_2, cloth_3, s1, s2, cloth_out_reg);
+    muxFourOneForWM wash_mux(wash_0, wash_1, wash_2, wash_3, s1, s2, wash_out);
+    muxFourOneForWM rinse_mux(rinse_0, rinse_1, rinse_2, rinse_3, s1, s2, rinse_out);
+    muxFourOneForWM spin_mux(spin_0, spin_1, spin_2, spin_3, s1, s2, spin_out);
+    muxFourOneForWM cloth_mux(cloth_0, cloth_1, cloth_2, cloth_3, s1, s2, cloth_out);
 
-    fiveBitOneBitAnd wash_and(wash_out, wash_out_reg, choose_output);
-    fiveBitOneBitAnd rinse_and(rinse_out, rinse_out_reg, choose_output);
-    fiveBitOneBitAnd spin_and(spin_out, spin_out_reg, choose_output);
-    fiveBitOneBitAnd cloth_and(cloth_out, cloth_out_reg, choose_output);
+    // fiveBitOneBitAnd wash_and(wash_out, wash_out_reg, choose_output);
+    // fiveBitOneBitAnd rinse_and(rinse_out, rinse_out_reg, choose_output);
+    // fiveBitOneBitAnd spin_and(spin_out, spin_out_reg, choose_output);
+    // fiveBitOneBitAnd cloth_and(cloth_out, cloth_out_reg, choose_output);
 endmodule
 
 module fiveBitAnd(out, i, inp1, inp2);

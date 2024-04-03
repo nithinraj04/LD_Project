@@ -88,6 +88,13 @@ wash_out_2, rinse_out_2, spin_out_2, cloth_out_2);
         s3 = 1;
         s4 = 0; s5 = 0;
         #10
+
+        // Test Case 6
+        s0 = 1; s1 = 0;
+        s2 = 0;
+        s3 = 1;
+        s4 = 0; s5 = 1;
+        #10
         
 
         $finish();
