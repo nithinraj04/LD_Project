@@ -50,7 +50,10 @@ You can control wash time, rinse time, spin time and cloth type using this devic
 1 1 0 => Read/run mode 3\
 1 1 1 => Reset output
 
-Note that this device uses the four 4-bit input ports `wash`, `rinse`, `spin` and `cloth`; rather than the standard input port `inp`.
+Note that this device uses the four 4-bit input ports `wash`, `rinse`, `spin` and `cloth`; rather than the standard input port `inp`. To reset all input, choose a register (preferrably 1 1) in write mode and set all the input ports to zero.
+\
+\
+\
 \
 \
 \
