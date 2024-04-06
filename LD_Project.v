@@ -34,3 +34,4 @@ wash_out_2, rinse_out_2, spin_out_2, cloth_out_2
     washingMachine wm1(wm1_sel, s3, s4, s5, wash, rinse, spin, cloth, wash_out_1, rinse_out_1, spin_out_1, cloth_out_1);
     washingMachine wm2(wm2_sel, s3, s4, s5, wash, rinse, spin, cloth, wash_out_2, rinse_out_2, spin_out_2, cloth_out_2);
 endmodule
+

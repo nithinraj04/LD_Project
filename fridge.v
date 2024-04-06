@@ -21,8 +21,8 @@ module fridge(i, s0, s1, s2, inp, fgt, frt, fgc, frc, ice);
 
     memoryImplementation temperature_fridge(i, fridge_temp, inp[0], inp[1], inp[2], inp[3], inp[4], fgt[0], fgt[1], fgt[2], fgt[3], fgt[4]);
     memoryImplementation temperature_freezer(i, freezer_temp, inp[0], inp[1], inp[2], inp[3], inp[4], frt[0], frt[1], frt[2], frt[3], frt[4]);
-    memoryImplementation capacity_fridge(i, fridge_capacity, x, x, x, inp[3], inp[4], fgc[0], fgc[1], fgc[2], fgc[3], fgc[4]);
-    memoryImplementation capacity_freezer(i, freezer_capacity, x, x, x, inp[3], inp[4], frc[0], frc[1], frc[2], frc[3], frc[4]);
+    memoryImplementation capacity_fridge(i, fridge_capacity, inp[0], inp[1], x, x, x, fgc[0], fgc[1], fgc[2], fgc[3], fgc[4]);
+    memoryImplementation capacity_freezer(i, freezer_capacity, inp[0], inp[1], x, x, x, frc[0], frc[1], frc[2], frc[3], frc[4]);
     icemaker ice_maker(i, ice_maker_sel, inp[0], ice);
 endmodule
 

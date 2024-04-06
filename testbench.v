@@ -24,6 +24,15 @@ wash_out_2, rinse_out_2, spin_out_2, cloth_out_2);
     initial begin 
 
         clk = 1;
+
+        $monitor("sel=%b%b%b%b%b%b inp=%b wash=%b rinse=%b spin=%b cloth=%b
+fgt1=%b frt1=%b fgc1=%b frc1=%b ice1=%b fgt2=%b frt2=%b fgc2=%b frc2=%b ice2=%b
+actemp1=%b accap1=%b acfan1=%b actimer1=%b actemp2=%b accap2=%b acfan2=%b actimer2=%b
+wash_out_1=%b rinse_out_1=%b spin_out_1=%b cloth_out_1=%b wash_out_2=%b rinse_out_2=%b spin_out_2=%b cloth_out_2=%b \n", 
+s0, s1, s2, s3, s4, s5, inp, wash, rinse, spin, cloth, 
+fgt1, frt1, fgc1, frc1, ice1, fgt2, frt2, fgc2, frc2, ice2, 
+actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2, 
+wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wash_out_2, rinse_out_2, spin_out_2, cloth_out_2);
         
         // Initialize icemakers to 0
         s0 = 0; s1 = 0;
@@ -47,7 +56,6 @@ wash_out_2, rinse_out_2, spin_out_2, cloth_out_2);
         #10
 
         // Test Case 1
-        #10;
         s0 = 0; s1 = 1;
         s2 = 1;
         s3 = 1; s4 = 0;
@@ -95,7 +103,6 @@ wash_out_2, rinse_out_2, spin_out_2, cloth_out_2);
         s3 = 1;
         s4 = 0; s5 = 1;
         #10
-        
 
         $finish();
 
