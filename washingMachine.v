@@ -38,11 +38,11 @@ module fiveBitAnd(out, i, inp1, inp2);
     input [4:0] i;
     input inp1, inp2;
     output [4:0] out;
-    and and0(out[0], inp1, inp2, i);
-    and and1(out[1], inp1, inp2, i);
-    and and2(out[2], inp1, inp2, i);
-    and and3(out[3], inp1, inp2, i);
-    and and4(out[4], inp1, inp2, i);
+    and and0(out[0], inp1[0], inp2[0], i);
+    and and1(out[1], inp1[1], inp2[1], i);
+    and and2(out[2], inp1[2], inp2[2], i);
+    and and3(out[3], inp1[3], inp2[3], i);
+    and and4(out[4], inp1[4], inp2[4], i);
 endmodule
 
 module fiveBitOr(out, inp1, inp2, inp3, inp4);

@@ -40,18 +40,17 @@ The five bits of `Inp` pin is used to give input values for the selected operati
 
 ### Washing Machine
 
-You can control wash time, rinse time, spin time and cloth type using this device. Four different such presets can be stored and later be used. The port `s3` is used to chose between whether to write to ther registers or to read from the registers. The ports `s4` and `s5` are used to choose the preset number (i.e, mode1, mode2, mode3 and mode4).
+You can control wash time, rinse time, spin time and cloth type using this device. Three different such presets can be stored and later be used. The port `s3` is used to chose between whether to write to ther registers or to read from the registers. The ports `s4` and `s5` are used to choose the preset number (i.e, mode1, mode2, mode3 and mode4).
 
 0 0 0 => Write to mode 1\
 0 0 1 => Write to mode 2\
 0 1 0 => Write to mode 3\
-0 1 1 => Write to mode 4\
 1 0 0 => Read/run mode 1\
 1 0 1 => Read/run mode 2\
 1 1 0 => Read/run mode 3\
-1 1 1 => Read/run mode 4
+1 1 1 => Reset output
 
-Note that this device uses the four 4-bit input ports `wash`, `rinse`, `spin` and `cloth`; rather than the standard input port `inp`. Note that to reset the output of washing machines to 0000, just chose write mode and leave rest of the inputs blank.
+Note that this device uses the four 4-bit input ports `wash`, `rinse`, `spin` and `cloth`; rather than the standard input port `inp`.
 \
 \
 \

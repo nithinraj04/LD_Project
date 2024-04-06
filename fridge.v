@@ -23,19 +23,18 @@ module fridge(i, s0, s1, s2, inp, fgt, frt, fgc, frc, ice);
     memoryImplementation temperature_freezer(i, freezer_temp, inp[0], inp[1], inp[2], inp[3], inp[4], frt[0], frt[1], frt[2], frt[3], frt[4]);
     memoryImplementation capacity_fridge(i, fridge_capacity, inp[0], inp[1], x, x, x, fgc[0], fgc[1], fgc[2], fgc[3], fgc[4]);
     memoryImplementation capacity_freezer(i, freezer_capacity, inp[0], inp[1], x, x, x, frc[0], frc[1], frc[2], frc[3], frc[4]);
-    icemaker ice_maker(i, ice_maker_sel, inp[0], ice);
+    icemaker ice_maker(ice_maker_sel, inp[0], ice);
 endmodule
 
-module icemaker(i, sel, inp, out);
-    input i; //power
-    input sel; // selector 
+module icemaker(power, inp, out);
+    // input i; //power
+    input power; // selector 
     input inp; // input value
 
     output out;
 
-    wire power, ninp, inp0, ninp0;
+    wire ninp, inp0, ninp0;
 
-    and and0(power, i, sel);
     not not0(ninp, inp);
     and and1(inp0, power, inp);
     and and2(ninp0, power, ninp);
