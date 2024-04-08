@@ -1,0 +1,152 @@
+# Reading pref.tcl
+# do LD_Project_run_msim_gate_verilog.do
+# if {[file exists gate_work]} {
+# 	vdel -lib gate_work -all
+# }
+# vlib gate_work
+# vmap work gate_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work gate_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -vlog01compat -work work +incdir+. {LD_Project.vo}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 21:43:35 on Apr 06,2024
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+." LD_Project.vo 
+# -- Compiling module LD_Project
+# -- Compiling module hard_block
+# 
+# Top level modules:
+# 	LD_Project
+# End time: 21:43:35 on Apr 06,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vlog -vlog01compat -work work +incdir+D:/Logic\ Design/Quartus\ prime {D:/Logic Design/Quartus prime/testbench.v}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 21:43:35 on Apr 06,2024
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+D:/Logic Design/Quartus prime" D:/Logic Design/Quartus prime/testbench.v 
+# -- Compiling module testbench
+# ** Warning: D:/Logic Design/Quartus prime/testbench.v(30): (vlog-2643) Unterminated string literal continues onto next line.
+# 
+# Top level modules:
+# 	testbench
+# End time: 21:43:35 on Apr 06,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# 
+# vsim -t 1ps -L altera_ver -L altera_lnsim_ver -L fiftyfivenm_ver -L gate_work -L work -voptargs="+acc"  testbench
+# vsim -t 1ps -L altera_ver -L altera_lnsim_ver -L fiftyfivenm_ver -L gate_work -L work -voptargs=""+acc"" testbench 
+# Start time: 21:43:35 on Apr 06,2024
+# Loading work.testbench
+# Loading work.LD_Project
+# Loading work.hard_block
+# Loading fiftyfivenm_ver.fiftyfivenm_lcell_comb
+# Loading fiftyfivenm_ver.fiftyfivenm_io_obuf
+# Loading fiftyfivenm_ver.fiftyfivenm_io_ibuf
+# Loading fiftyfivenm_ver.fiftyfivenm_clkctrl
+# Loading fiftyfivenm_ver.fiftyfivenm_mux41
+# Loading fiftyfivenm_ver.fiftyfivenm_ena_reg
+# Loading fiftyfivenm_ver.fiftyfivenm_unvm
+# Loading fiftyfivenm_ver.fiftyfivenm_adcblock
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for '\~QUARTUS_CREATED_ADC1~ '.  Expected 8, found 7.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench/inst/\~QUARTUS_CREATED_ADC1~  File: LD_Project.vo Line: 8621
+# ** Warning: (vsim-3722) LD_Project.vo(8621): [TFMPC] - Missing connection for port 'clk_dft'.
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for '\~QUARTUS_CREATED_ADC2~ '.  Expected 8, found 7.
+#    Time: 0 ps  Iteration: 0  Instance: /testbench/inst/\~QUARTUS_CREATED_ADC2~  File: LD_Project.vo Line: 8644
+# ** Warning: (vsim-3722) LD_Project.vo(8644): [TFMPC] - Missing connection for port 'clk_dft'.
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+# sel=000000 inp=10101 wash=xxxxx rinse=xxxxx spin=xxxxx cloth=xxxxx
+# fgt1=10101 frt1=xxxxx fgc1=000xx frc1=000xx ice1=x fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=xxxxx accap1=000xx acfan1=00xxx actimer1=00xxx actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=xxxxx rinse1=xxxxx spin1=xxxxx cloth1=xxxxx wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=000001 inp=11101 wash=xxxxx rinse=xxxxx spin=xxxxx cloth=xxxxx
+# fgt1=10101 frt1=11101 fgc1=000xx frc1=000xx ice1=x fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=xxxxx accap1=000xx acfan1=00xxx actimer1=00xxx actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=xxxxx rinse1=xxxxx spin1=xxxxx cloth1=xxxxx wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=000010 inp=xxx11 wash=xxxxx rinse=xxxxx spin=xxxxx cloth=xxxxx
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=000xx ice1=x fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=xxxxx accap1=000xx acfan1=00xxx actimer1=00xxx actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=xxxxx rinse1=xxxxx spin1=xxxxx cloth1=xxxxx wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=000011 inp=xxx10 wash=xxxxx rinse=xxxxx spin=xxxxx cloth=xxxxx
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=x fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=xxxxx accap1=000xx acfan1=00xxx actimer1=00xxx actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=xxxxx rinse1=xxxxx spin1=xxxxx cloth1=xxxxx wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=000100 inp=00000 wash=xxxxx rinse=xxxxx spin=xxxxx cloth=xxxxx
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=xxxxx accap1=000xx acfan1=00xxx actimer1=00xxx actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=xxxxx rinse1=xxxxx spin1=xxxxx cloth1=xxxxx wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=01000x inp=01111 wash=xxxxx rinse=xxxxx spin=xxxxx cloth=xxxxx
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=000xx acfan1=00xxx actimer1=00xxx actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=xxxxx rinse1=xxxxx spin1=xxxxx cloth1=xxxxx wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=01001x inp=xxx10 wash=xxxxx rinse=xxxxx spin=xxxxx cloth=xxxxx
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=00010 acfan1=00xxx actimer1=00xxx actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=xxxxx rinse1=xxxxx spin1=xxxxx cloth1=xxxxx wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=01010x inp=xx110 wash=xxxxx rinse=xxxxx spin=xxxxx cloth=xxxxx
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=00010 acfan1=00110 actimer1=00xxx actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=xxxxx rinse1=xxxxx spin1=xxxxx cloth1=xxxxx wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=01011x inp=xx100 wash=xxxxx rinse=xxxxx spin=xxxxx cloth=xxxxx
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=00010 acfan1=00110 actimer1=00100 actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=xxxxx rinse1=xxxxx spin1=xxxxx cloth1=xxxxx wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=100000 inp=xx100 wash=00111 rinse=01101 spin=01100 cloth=00010
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=00010 acfan1=00110 actimer1=00100 actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=00111 rinse1=01101 spin1=01100 cloth1=00010 wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=100001 inp=xx100 wash=01100 rinse=01011 spin=01000 cloth=00011
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=00010 acfan1=00110 actimer1=00100 actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=01100 rinse1=01011 spin1=01000 cloth1=00011 wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=100010 inp=xx100 wash=01011 rinse=01001 spin=01101 cloth=00011
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=00010 acfan1=00110 actimer1=00100 actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=01011 rinse1=01001 spin1=01101 cloth1=00011 wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=100100 inp=xx100 wash=01011 rinse=01001 spin=01101 cloth=00011
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=00010 acfan1=00110 actimer1=00100 actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=00111 rinse1=01101 spin1=01100 cloth1=00010 wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=100101 inp=xx100 wash=01011 rinse=01001 spin=01101 cloth=00011
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=00010 acfan1=00110 actimer1=00100 actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=01100 rinse1=01011 spin1=01000 cloth1=00011 wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=100110 inp=xx100 wash=01011 rinse=01001 spin=01101 cloth=00011
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=00010 acfan1=00110 actimer1=00100 actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=01011 rinse1=01001 spin1=01101 cloth1=00011 wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=100111 inp=xx100 wash=01011 rinse=01001 spin=01101 cloth=00011
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=00010 acfan1=00110 actimer1=00100 actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=xxxxx rinse1=xxxxx spin1=xxxxx cloth1=xxxxx wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# sel=100000 inp=xx100 wash=00000 rinse=00000 spin=00000 cloth=00000
+# fgt1=10101 frt1=11101 fgc1=00011 frc1=00010 ice1=0 fgt2=xxxxx frt2=xxxxx fgc2=000xx frc2=000xx ice2=x
+# actemp1=01111 accap1=00010 acfan1=00110 actimer1=00100 actemp2=xxxxx accap2=000xx acfan2=00xxx actimer2=00xxx
+# wash1=00000 rinse1=00000 spin1=00000 cloth1=00000 wash2=xxxxx rinse2=xxxxx spin2=xxxxx cloth2=xxxxx 
+# 
+# ** Note: $finish    : D:/Logic Design/Quartus prime/testbench.v(172)
+#    Time: 170 ns  Iteration: 0  Instance: /testbench
+# 1
+# Break in Module testbench at D:/Logic Design/Quartus prime/testbench.v line 172
