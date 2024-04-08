@@ -159,6 +159,16 @@ wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wash_out_2, rinse_out_2, spin_
         s4 = 1; s5 = 1;
         #10
 
+        s0 = 1; s1 = 0;
+        s2 = 0;
+        s3 = 0;
+        s4 = 0; s5 = 0;
+        wash = 5'b00000;
+        rinse = 5'b00000;
+        spin = 5'b00000;
+        cloth = 5'b00000;
+        #10
+
         $finish();
 
     end
