@@ -2,7 +2,7 @@
 
 Welcome!
 
-Using this centralized home automation system, you can control two fridges, two air conditioners and two washing machines. Pls don't ask me why I chose this topic.
+The centralized smart home control system is a Verilog based project, which aims at the integration of smart features into regular household appliances. The system allows monitoring and controlling two fridges, two air conditioners, as well as two washing machines from one central point.
 
 The input lines `s0` through `s5` are the selector lines.
 
@@ -13,7 +13,7 @@ The input lines `s0` through `s5` are the selector lines.
 
 `s2` is used to select the appliance number (in this project, I've included support for only upto 2 appliances each)
 
-The functionalities of `s3`, `s4` and `s5` are device specific. 
+The functionalities of `s3`, `s4` and `s5` are device specific.
 
 ### Refrigerator
 
