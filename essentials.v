@@ -12,20 +12,21 @@ module demuxFourOne(i, s0, s1, y0, y1, y2, y3);
     and and_3(y3, s0, s1, i);
 endmodule
 
-module srlatch(s,r,qbar); //The inputs should have been ~s and ~r
+module srlatch(s,r,q); //The inputs should have been ~s and ~r
     input s,r;
-    output qbar;
-    wire q;
+    output q;
+    wire qbar;
+    
+    nor n0(q,r,qbar);
+    nor n1(qbar,s,q);
 
-    nor n0(qbar,r,q);
-    nor n1(q,s,qbar);
 endmodule
 
 module demuxTwoOne(i, s0, y0, y1);
     input i, s0;
     output y0, y1;
     wire not_s0;
-
+    
     not not_0(not_s0, s0);
     and and_0(y0, i, not_s0);
     and and_1(y1, i, s0);
