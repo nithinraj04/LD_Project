@@ -14,7 +14,10 @@ wash_out_2, rinse_out_2, spin_out_2, cloth_out_2
     // wire [7:0] null;
 
     input [4:0] inp; // input for values
-    output [4:0] fgt1, frt1, fgc1, frc1, fgt2, frt2, fgc2, frc2;
+    output [4:0] fgt1, frt1;
+    output [7:0] fgc1, frc1;
+    output [4:0] fgt2, frt2;
+    output [7:0] fgc2, frc2;
     output ice1, ice2;
     output [4:0] actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2;
     output [4:0] wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wash_out_2, rinse_out_2, spin_out_2, cloth_out_2;

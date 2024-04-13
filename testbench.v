@@ -8,17 +8,14 @@ module testbench;
 
     reg [4:0] inp; // input for values
     reg [4:0] wash, rinse, spin, cloth; // input for washing machine
-    wire [4:0] fgt1, frt1, fgc1, frc1;
+    wire [4:0] fgt1, frt1;
+    wire [7:0] fgc1, frc1;
     wire ice1;
-    wire [4:0] fgt2, frt2, fgc2, frc2;
+    wire [4:0] fgt2, frt2;
+    wire [7:0] fgc2, frc2;
     wire ice2;
     wire [4:0] actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2;
     wire [4:0] wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wash_out_2, rinse_out_2, spin_out_2, cloth_out_2;
-
-    reg [4:0] a, b;
-    wire [7:0] test;
-
-    multiplier insta(a, b, test);
 
     reg clk;
 
@@ -45,19 +42,7 @@ actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2,
 wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wash_out_2, rinse_out_2, spin_out_2, cloth_out_2);
         
         // Fridge
-
-        a = 5'b11001; b = 5'b00001;
-        #10
-
-        a = 5'b11001; b = 5'b00010;
-        #10
-
-        a = 5'b11001; b = 5'b00011;
-        #10
-
-        a = 5'b11001; b = 5'b00100;
-        #10
-
+        
         s0 = 0; s1 = 0;
         s2 = 0;
         s3 = 0; s4 = 0;

@@ -6,13 +6,16 @@ module fridge(i, s0, s1, s2, inp, fgt, frt, fgc, frc, ice);
 
     output [4:0] fgt; // fridge temperature
     output [4:0] frt; // freezer temperature
-    output [4:0] fgc; // fridge capacity
-    output [4:0] frc; // freezer capacity
+    output [7:0] fgc; // fridge capacity
+    output [7:0] frc; // freezer capacity
     output ice; // ice maker
 
     wire temp, capacity, ice_maker_sel, y3, y4; 
     wire fridge_temp, freezer_temp, fridge_capacity, freezer_capacity;
     wire [2:0] adder_out;
+    wire [4:0] multiple;
+    wire [7:0] mult_out;
+    assign multiple = 5'b11001;
     
     demuxFourOne demux(i, s0, s1, temp, capacity, ice_maker_sel, y3);
     demuxTwoOne temperature_sel(temp, s2, fridge_temp, freezer_temp);
@@ -23,10 +26,11 @@ module fridge(i, s0, s1, s2, inp, fgt, frt, fgc, frc, ice);
     memoryImplementation temperature_fridge(i, fridge_temp, inp[0], inp[1], inp[2], inp[3], inp[4], fgt[0], fgt[1], fgt[2], fgt[3], fgt[4]);
     memoryImplementation temperature_freezer(i, freezer_temp, inp[0], inp[1], inp[2], inp[3], inp[4], frt[0], frt[1], frt[2], frt[3], frt[4]);
 
-    rippleCarryAdderTwoBit adder(inp[0], inp[1], i, x, adder_out[0], adder_out[1], adder_out[2]);
+    rippleCarryAdderTwoBit adder(inp[0], inp[1], i, x, adder_out);
+    multiplier mult(multiple, adder_out, mult_out);
 
-    memoryImplementation capacity_fridge(i, fridge_capacity, adder_out[0], adder_out[1], adder_out[2], x, x, fgc[0], fgc[1], fgc[2], fgc[3], fgc[4]);
-    memoryImplementation capacity_freezer(i, freezer_capacity, adder_out[0], adder_out[1], adder_out[2], x, x, frc[0], frc[1], frc[2], frc[3], frc[4]);
+    splMemoryImplementation capacity_fridge(i, fridge_capacity, mult_out[0], mult_out[1], mult_out[2], mult_out[3], mult_out[4], mult_out[5], mult_out[6], mult_out[7] ,fgc[0], fgc[1], fgc[2], fgc[3], fgc[4], fgc[5], fgc[6], fgc[7]);
+    splMemoryImplementation capacity_freezer(i, freezer_capacity, mult_out[0], mult_out[1], mult_out[2], mult_out[3], mult_out[4], mult_out[5], mult_out[6], mult_out[7], frc[0], frc[1], frc[2], frc[3], frc[4], frc[5], frc[6], frc[7]);
 
     icemaker ice_maker(ice_maker_sel, inp[0], ice);
 endmodule
@@ -63,14 +67,13 @@ module fullAdder(a, b, cin, sum, cout);
     or or0(cout, c1, c2);
 endmodule
 
-module rippleCarryAdderTwoBit(a0, a1, b0, b1, sum0, sum1, carry);
+module rippleCarryAdderTwoBit(a0, a1, b0, b1, out);
     input a0, a1, b0, b1;
-    output sum0, sum1;
-    output carry;
+    output [2:0] out;
     wire c0, c1;
-    fullAdder fa0(a0, b0, 0, sum0, c0);
-    fullAdder fa1(a1, b1, c0, sum1, c1);
-    or or0(carry, c0, c1);
+    fullAdder fa0(a0, b0, 0, out[0], c0);
+    fullAdder fa1(a1, b1, c0, out[1], c1);
+    or or0(out[2], c0, c1);
 endmodule
 
 module rowAndForMultiplier(a, b, out);
@@ -86,7 +89,8 @@ module rowAndForMultiplier(a, b, out);
 endmodule
 
 module multiplier(a, b, out);
-    input [4:0] a, b;
+    input [4:0] a;
+    input [2:0] b;
     output [7:0] out;
 
     wire [4:0] first_row_and, second_row_and, third_row_and;
@@ -113,4 +117,4 @@ module multiplier(a, b, out);
 
 endmodule
 
-    
+
