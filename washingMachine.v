@@ -1,9 +1,10 @@
-module washingMachine(clk, s0, s1, s2, wash, rinse, spin, cloth, wash_out, rinse_out, spin_out, cloth_out);
+module washingMachine(clk, s0, s1, s2, wash, rinse, spin, cloth, wash_out, rinse_out, spin_out, cloth_out, total_time);
     input clk;
     input s0; // Read/write
     input s1, s2; // Preset mode number
     input [4:0] wash, rinse, spin, cloth;
     output [4:0] wash_out, rinse_out, spin_out, cloth_out;
+    output [7:0] total_time;
     wire write, read;
     wire reg1, reg2, reg3, reg4;
     wire [4:0] wash_0, rinse_0, spin_0, cloth_0;
@@ -12,6 +13,7 @@ module washingMachine(clk, s0, s1, s2, wash, rinse, spin, cloth, wash_out, rinse
     wire [4:0] wash_3, rinse_3, spin_3, cloth_3;
     wire choose_output;
     wire [4:0] wash_out_reg, rinse_out_reg, spin_out_reg, cloth_out_reg;
+    wire [7:0] adder_out1, adder_out2;
 
     demuxTwoOne demux0(clk, s0, write, read);
     demuxFourOne demux1(write, s1, s2, reg0, reg1, reg2, reg3);
@@ -27,6 +29,10 @@ module washingMachine(clk, s0, s1, s2, wash, rinse, spin, cloth, wash_out, rinse
     muxFourOneForWM rinse_mux(rinse_0, rinse_1, rinse_2, rinse_3, s1, s2, rinse_out);
     muxFourOneForWM spin_mux(spin_0, spin_1, spin_2, spin_3, s1, s2, spin_out);
     muxFourOneForWM cloth_mux(cloth_0, cloth_1, cloth_2, cloth_3, s1, s2, cloth_out);
+
+    sevenBitRippleCarryAdder adder0(wash_out[0], wash_out[1], wash_out[2], wash_out[3], wash_out[4], 0, 0, rinse_out[0], rinse_out[1], rinse_out[2], rinse_out[3], rinse_out[4], 0, 0, adder_out1);
+    sevenBitRippleCarryAdder adder1(adder_out1[0], adder_out1[1], adder_out1[2], adder_out1[3], adder_out1[4], adder_out1[5], adder_out1[6], spin_out[0], spin_out[1], spin_out[2], spin_out[3], spin_out[4], 0, 0, adder_out2);
+    splMemoryImplementation total_time_mem(clk, clk, adder_out2[0], adder_out2[1], adder_out2[2], adder_out2[3], adder_out2[4], adder_out2[5], adder_out2[6], adder_out2[7], total_time[0], total_time[1], total_time[2], total_time[3], total_time[4], total_time[5], total_time[6], total_time[7]);
 
     // fiveBitOneBitAnd wash_and(wash_out, wash_out_reg, choose_output);
     // fiveBitOneBitAnd rinse_and(rinse_out, rinse_out_reg, choose_output);
@@ -74,6 +80,7 @@ module washingMachineRegister(i, sel, wash, rinse, spin, cloth, wash_out, rinse_
     input i, sel;
     input [4:0] wash, rinse, spin, cloth;
     output [4:0] wash_out, rinse_out, spin_out, cloth_out;
+    wire [7:0] adder_out1, adder_out2, adder_out3;
 
     memoryImplementation wash_mem(i, sel, wash[0], wash[1], wash[2], wash[3], wash[4], wash_out[0], wash_out[1], wash_out[2], wash_out[3], wash_out[4]);
     memoryImplementation rinse_mem(i, sel, rinse[0], rinse[1], rinse[2], rinse[3], rinse[4], rinse_out[0], rinse_out[1], rinse_out[2], rinse_out[3], rinse_out[4]);
@@ -91,4 +98,18 @@ module fiveBitOneBitAnd(out, i, inp);
     and and2(out[2], i[2], inp);
     and and3(out[3], i[3], inp);
     and and4(out[4], i[4], inp);
+endmodule
+
+module sevenBitRippleCarryAdder(a0, a1, a2, a3, a4, a5, a6, b0, b1, b2, b3, b4, b5, b6, out);
+    input a0, a1, a2, a3, a4, a5, a6, b0, b1, b2, b3, b4, b5, b6;
+    output [7:0] out;
+    wire c0, c1, c2, c3, c4, c5, c6;
+    fullAdder fa0(a0, b0, 0, out[0], c0);
+    fullAdder fa1(a1, b1, c0, out[1], c1);
+    fullAdder fa2(a2, b2, c1, out[2], c2);
+    fullAdder fa3(a3, b3, c2, out[3], c3);
+    fullAdder fa4(a4, b4, c3, out[4], c4);
+    fullAdder fa5(a5, b5, c4, out[5], c5);
+    fullAdder fa6(a6, b6, c5, out[6], c6);
+    or or0(out[7], c6);
 endmodule

@@ -133,3 +133,76 @@ module splMemoryImplementation(i, s0, i0, i1, i2, i3, i4, i5, i6, i7, o0, o1, o2
     // memoryFiveBit mem(andOut[0], andOut[2], andOut[4], andOut[6], andOut[8], andOut[1], andOut[3], andOut[5], andOut[7], andOut[9], o0, o1, o2, o3, o4);
     memoryEightBit mem(andOut[0], andOut[2], andOut[4], andOut[6], andOut[8], andOut[10], andOut[12], andOut[14], andOut[1], andOut[3], andOut[5], andOut[7], andOut[9], andOut[11], andOut[13], andOut[15], o0, o1, o2, o3, o4, o5, o6, o7);
 endmodule
+
+
+
+module subtractorForDivider(a, b, cin, diff, cout);
+    input a, b, cin;
+    output diff, cout;
+    wire notb;
+
+    not not0(notb, b);
+    fullAdder adder(a, notb, cin, diff, cout);
+endmodule
+
+module muxTwoOne(i0, i1, s0, out);
+    input i0, i1, s0;
+    output out;
+    wire not_s0, out0, out1;
+
+    not not_0(not_s0, s0);
+    and and_0(out0, i0, not_s0);
+    and and_1(out1, i1, s0);
+    or or_0(out, out0, out1);
+endmodule
+
+module unitOfDivision(a, b, cin, sel, cout, mux_out);
+    input a, b, cin, sel;
+    output cout, mux_out;
+    wire adder_out;
+
+    subtractorForDivider sub(a, b, cin, adder_out, cout);
+    muxTwoOne mux0(a, adder_out, sel, mux_out);
+endmodule
+
+module rowOfDivision(a0, a1, a2, a3, b0, b1, b2, b3, cout, o0, o1, o2, o3);
+    // a/b
+    input a0, a1, a2, a3, b0, b1, b2, b3;
+    output o0, o1, o2, o3, cout;
+    wire c0, c1, c2;
+    wire sel;
+    
+    unitOfDivision unit0(a0, b0, 1, sel, c0, o0);
+    unitOfDivision unit1(a1, b1, c0, sel, c1, o1);
+    unitOfDivision unit2(a2, b2, c1, sel, c2, o2);
+    unitOfDivision unit3(a3, b3, c2, sel, sel, o3);
+    assign cout = sel;
+endmodule
+    
+
+module divider(a, b, q);
+    input [8:0] a;
+    input [2:0] b;
+    output [6:0] q;
+
+    wire [3:0] row0, row1, row2, row3, row4, row5, row6;
+    
+    rowOfDivision row_0(a[6], a[7], a[8], 0, b[0], b[1], b[2], 0, q[6], row0[0], row0[1], row0[2], row0[3]);
+    rowOfDivision row_1(a[5], row0[0], row0[1], row0[2], b[0], b[1], b[2], 0, q[5], row1[0], row1[1], row1[2], row1[3]);
+    rowOfDivision row_2(a[4], row1[0], row1[1], row1[2], b[0], b[1], b[2], 0, q[4], row2[0], row2[1], row2[2], row2[3]);
+    rowOfDivision row_3(a[3], row2[0], row2[1], row2[2], b[0], b[1], b[2], 0, q[3], row3[0], row3[1], row3[2], row3[3]);
+    rowOfDivision row_4(a[2], row3[0], row3[1], row3[2], b[0], b[1], b[2], 0, q[2], row4[0], row4[1], row4[2], row4[3]);
+    rowOfDivision row_5(a[1], row4[0], row4[1], row4[2], b[0], b[1], b[2], 0, q[1], row5[0], row5[1], row5[2], row5[3]);
+    rowOfDivision row_6(a[0], row5[0], row5[1], row5[2], b[0], b[1], b[2], 0, q[0], row6[0], row6[1], row6[2], row6[3]);
+endmodule
+
+module cToF(c, f);
+    input [4:0] c;
+    output [6:0] f;
+    wire [8:0] mult_out;
+    wire [6:0] div_out;
+
+    multiplier mult(c, 4'b1001, mult_out);
+    divider div(mult_out, 3'b101, div_out);
+    sevenBitRippleCarryAdder adder(div_out[0], div_out[1], div_out[2], div_out[3], div_out[4], div_out[5], div_out[6], 0, 0, 0, 0, 0, 1, 0, f);
+endmodule

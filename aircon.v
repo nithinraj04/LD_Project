@@ -4,7 +4,7 @@ module airconditioner(i, s0, s1, inp, temp, cap, fan, timer);
     input [4:0] inp; // input for values 
 
     output [4:0] temp; // temperature
-    output [4:0] cap; // capacity
+    output [7:0] cap; // capacity
     output [4:0] fan; // fan speed
     output [4:0] timer; // timer
 
@@ -14,7 +14,13 @@ module airconditioner(i, s0, s1, inp, temp, cap, fan, timer);
 
     wire [4:0] lower_bound;
     assign lower_bound = 5'b10001;
-    
+
+    wire [3:0] adder_out;
+    wire [4:0] multiple;
+    wire [7:0] mult_out;
+    assign multiple = 5'b11001;
+    assign adder_out[3] = 1'b0;
+
     demuxFourOne demux(i, s0, s1, temperature, capacity, fan_speed, timer_sel);
     
     not n0(x, i);
@@ -22,8 +28,12 @@ module airconditioner(i, s0, s1, inp, temp, cap, fan, timer);
     fiveBitComparator comp(inp, lower_bound, le, eq, ge);
     fiveTwoOneMux mux1(inp, lower_bound, le, temp_temp_out);
 
+    rippleCarryAdderTwoBit adder(inp[0], inp[1], i, x, adder_out);
+    multiplier mult(multiple, adder_out, mult_out);
+
     memoryImplementation temp_mem(i, temperature, temp_temp_out[0], temp_temp_out[1], temp_temp_out[2], temp_temp_out[3], temp_temp_out[4], temp[0], temp[1], temp[2], temp[3], temp[4]);
-    memoryImplementation capacity_mem(i, capacity, inp[0], inp[1], x, x, x, cap[0], cap[1], cap[2], cap[3], cap[4]);
+    splMemoryImplementation capacity_fridge(i, capacity, mult_out[0], mult_out[1], mult_out[2], mult_out[3], mult_out[4], mult_out[5], mult_out[6], mult_out[7] ,cap[0], cap[1], cap[2], cap[3], cap[4], cap[5], cap[6], cap[7]);
+
     memoryImplementation fan_mem(i, fan_speed, inp[0], inp[1], inp[2], x, x, fan[0], fan[1], fan[2], fan[3], fan[4]);
     memoryImplementation timer_mem(i, timer_sel, inp[0], inp[1], inp[2], x, x, timer[0], timer[1], timer[2], timer[3], timer[4]);
 endmodule

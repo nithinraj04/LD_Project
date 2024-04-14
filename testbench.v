@@ -14,8 +14,20 @@ module testbench;
     wire [4:0] fgt2, frt2;
     wire [7:0] fgc2, frc2;
     wire ice2;
-    wire [4:0] actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2;
-    wire [4:0] wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wash_out_2, rinse_out_2, spin_out_2, cloth_out_2;
+    wire [4:0] actemp1; 
+    wire [7:0] accap1;
+    wire [4:0] acfan1, actimer1, actemp2;
+    wire [7:0] accap2;
+    wire [4:0] acfan2, actimer2;
+    wire [4:0] wash_out_1, rinse_out_1, spin_out_1, cloth_out_1;
+    wire [7:0] wm1_total_time;
+    wire [4:0] wash_out_2, rinse_out_2, spin_out_2, cloth_out_2;
+    wire [7:0] wm2_total_time;
+
+    reg [4:0] c;
+    wire [6:0] f;
+
+    cToF temp_conv(c, f);
 
     reg clk;
 
@@ -23,8 +35,8 @@ module testbench;
 fgt1, frt1, fgc1, frc1, fgt2, frt2, fgc2, frc2, ice1, ice2, 
 actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2, 
 wash, rinse, spin, cloth,
-wash_out_1, rinse_out_1, spin_out_1, cloth_out_1,
-wash_out_2, rinse_out_2, spin_out_2, cloth_out_2);
+wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wm1_total_time,
+wash_out_2, rinse_out_2, spin_out_2, cloth_out_2, wm2_total_time);
 
     always #5 clk = ~clk;
 
@@ -35,14 +47,26 @@ wash_out_2, rinse_out_2, spin_out_2, cloth_out_2);
         $monitor("sel=%b%b%b%b%b%b inp=%b wash=%b rinse=%b spin=%b cloth=%b
 fgt1=%b frt1=%b fgc1=%b frc1=%b ice1=%b fgt2=%b frt2=%b fgc2=%b frc2=%b ice2=%b
 actemp1=%b accap1=%b acfan1=%b actimer1=%b actemp2=%b accap2=%b acfan2=%b actimer2=%b
-wash1=%b rinse1=%b spin1=%b cloth1=%b wash2=%b rinse2=%b spin2=%b cloth2=%b \n", 
+wash1=%b rinse1=%b spin1=%b cloth1=%b total_time1=%b wash2=%b rinse2=%b spin2=%b cloth2=%b total_time2=%b \n", 
 s0, s1, s2, s3, s4, s5, inp, wash, rinse, spin, cloth, 
 fgt1, frt1, fgc1, frc1, ice1, fgt2, frt2, fgc2, frc2, ice2, 
 actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2, 
-wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wash_out_2, rinse_out_2, spin_out_2, cloth_out_2);
+wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wm1_total_time, wash_out_2, rinse_out_2, spin_out_2, cloth_out_2, wm2_total_time);
         
         // Fridge
-        
+
+        c = 5'b00000;
+        #10
+
+        c = 5'b00001;
+        #10
+
+        c = 5'b00010;
+        #10
+
+        c = 5'b11111;
+        #10
+
         s0 = 0; s1 = 0;
         s2 = 0;
         s3 = 0; s4 = 0;
@@ -98,7 +122,7 @@ wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wash_out_2, rinse_out_2, spin_
         s2 = 0;
         s3 = 0; s4 = 0;
         s5 = 1'bx;
-        inp = 5'b01011;
+        inp = 5'b11011;
         #10
 
         s0 = 0; s1 = 1;

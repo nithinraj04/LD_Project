@@ -12,10 +12,11 @@ module fridge(i, s0, s1, s2, inp, fgt, frt, fgc, frc, ice);
 
     wire temp, capacity, ice_maker_sel, y3, y4; 
     wire fridge_temp, freezer_temp, fridge_capacity, freezer_capacity;
-    wire [2:0] adder_out;
+    wire [3:0] adder_out;
     wire [4:0] multiple;
     wire [7:0] mult_out;
     assign multiple = 5'b11001;
+    assign adder_out[3] = 1'b0;
     
     demuxFourOne demux(i, s0, s1, temp, capacity, ice_maker_sel, y3);
     demuxTwoOne temperature_sel(temp, s2, fridge_temp, freezer_temp);
@@ -88,33 +89,38 @@ module rowAndForMultiplier(a, b, out);
     and and_4(out[4], a[4], b);
 endmodule
 
+module rowAdderForMultiplier(add0, add1, add2, add3, add4, and_in, out0, out1, out2, out3, out4, carry);
+    input add0, add1, add2, add3, add4;
+    input [4:0] and_in;
+    output out0, out1, out2, out3, out4, carry;
+    wire c0, c1, c2, c3;
+
+    fullAdder fa0(add0, and_in[0], 0, out0, c0);
+    fullAdder fa1(add1, and_in[1], c0, out1, c1);
+    fullAdder fa2(add2, and_in[2], c1, out2, c2);
+    fullAdder fa3(add3, and_in[3], c2, out3, c3);
+    fullAdder fa4(add4, and_in[4], c3, out4, carry);
+endmodule
+
 module multiplier(a, b, out);
     input [4:0] a;
-    input [2:0] b;
-    output [7:0] out;
+    input [3:0] b;
+    output [8:0] out;
 
-    wire [4:0] first_row_and, second_row_and, third_row_and;
-    wire c0, c1, c2, c3, c4, c5, c6, c7, c8;
-    wire s0, s1, s2, s3;
+    wire [4:0] first_row_and, second_row_and, third_row_and, fourth_row_and;
+    wire s00, s01, s02, s03, s04, s05;
+    wire s10, s11, s12, s13, s14, s15;
+    wire s20, s21, s22, s23, s24, s25;
 
     and and00(out[0], a[0], b[0]);
 
     rowAndForMultiplier row0(a, b[0], first_row_and);
     rowAndForMultiplier row1(a, b[1], second_row_and);
     rowAndForMultiplier row2(a, b[2], third_row_and);
+    rowAndForMultiplier row3(a, b[3], fourth_row_and);
 
-    halfAdder ha0(first_row_and[1], second_row_and[0], out[1], c0);
-    fullAdder fa0(first_row_and[2], second_row_and[1], c0, s0, c1);
-    fullAdder fa1(first_row_and[3], second_row_and[2], c1, s1, c2);
-    fullAdder fa2(first_row_and[4], second_row_and[3], c2, s2, c3);
-    halfAdder ha1(c3, second_row_and[4], s3, c4);
-
-    halfAdder ha2(s0, third_row_and[0], out[2], c5);
-    fullAdder fa3(s1, third_row_and[1], c5, out[3], c6);
-    fullAdder fa4(s2, third_row_and[2], c6, out[4], c7);
-    fullAdder fa5(s3, third_row_and[3], c7, out[5], c8);
-    fullAdder fa6(c4, third_row_and[4], c8, out[6], out[7]);
+    rowAdderForMultiplier add0(first_row_and[1], first_row_and[2], first_row_and[3], first_row_and[4], 0, second_row_and, out[1], s01, s02, s03, s04, s05);
+    rowAdderForMultiplier add1(s01, s02, s03, s04, s05, third_row_and, out[2], s11, s12, s13, s14, s15);
+    rowAdderForMultiplier add2(s11, s12, s13, s14, s15, fourth_row_and, out[3], out[4], out[5], out[6], out[7], out[8]);
 
 endmodule
-
-
