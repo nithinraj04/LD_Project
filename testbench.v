@@ -1,6 +1,7 @@
 `timescale 1 ns / 1 ps
 
-module testbench; 
+module testbench;
+    reg temp_unit;
     reg s0, s1; // selector for "what device to control"
     reg s2; // Device number
     reg s3, s4; // What to control in device
@@ -8,15 +9,16 @@ module testbench;
 
     reg [4:0] inp; // input for values
     reg [4:0] wash, rinse, spin, cloth; // input for washing machine
-    wire [4:0] fgt1, frt1;
+    wire [6:0] fgt1, frt1;
     wire [7:0] fgc1, frc1;
     wire ice1;
-    wire [4:0] fgt2, frt2;
+    wire [6:0] fgt2, frt2;
     wire [7:0] fgc2, frc2;
     wire ice2;
-    wire [4:0] actemp1; 
+    wire [6:0] actemp1; 
     wire [7:0] accap1;
-    wire [4:0] acfan1, actimer1, actemp2;
+    wire [4:0] acfan1, actimer1;
+    wire [6:0] actemp2;
     wire [7:0] accap2;
     wire [4:0] acfan2, actimer2;
     wire [4:0] wash_out_1, rinse_out_1, spin_out_1, cloth_out_1;
@@ -31,7 +33,7 @@ module testbench;
 
     reg clk;
 
-    LD_Project inst(clk, s0, s1, s2, s3, s4, s5, inp, 
+    LD_Project inst(clk, temp_unit, s0, s1, s2, s3, s4, s5, inp, 
 fgt1, frt1, fgc1, frc1, fgt2, frt2, fgc2, frc2, ice1, ice2, 
 actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2, 
 wash, rinse, spin, cloth,
@@ -53,19 +55,9 @@ fgt1, frt1, fgc1, frc1, ice1, fgt2, frt2, fgc2, frc2, ice2,
 actemp1, accap1, acfan1, actimer1, actemp2, accap2, acfan2, actimer2, 
 wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wm1_total_time, wash_out_2, rinse_out_2, spin_out_2, cloth_out_2, wm2_total_time);
         
+        temp_unit = 0;
+
         // Fridge
-
-        c = 5'b00000;
-        #10
-
-        c = 5'b00001;
-        #10
-
-        c = 5'b00010;
-        #10
-
-        c = 5'b11111;
-        #10
 
         s0 = 0; s1 = 0;
         s2 = 0;
@@ -210,6 +202,9 @@ wash_out_1, rinse_out_1, spin_out_1, cloth_out_1, wm1_total_time, wash_out_2, ri
         rinse = 5'b00000;
         spin = 5'b00000;
         cloth = 5'b00000;
+        #10
+
+        temp_unit = 1;
         #10
 
         $finish();
